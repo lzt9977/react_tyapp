@@ -1,12 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.less";
+import { Redirect, Switch, BrowserRouter } from "react-router-dom";
+import RouterMap, { NestedRoute } from "./router";
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+    <div>
+        <BrowserRouter>
+            <Switch>
+                {RouterMap.map((route, i) => (
+                    <NestedRoute {...route} key={i} />
+                ))}
+                <Redirect from="/" to="/home" exact={true} />
+            </Switch>
+        </BrowserRouter>
+    </div>,
+    document.getElementById("root")
+);
